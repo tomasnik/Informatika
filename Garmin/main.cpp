@@ -34,6 +34,7 @@ int main() {
             total_calories += stoi(text);
         }
     }
-    cout << "Celkovy pocet spalenych kalorii: " << total_calories;
+    cout << "Celkovy pocet spalenych kalorii: " << total_calories << endl;
+    cout << "Pro doplneni kalorii je potreba snist " << total_calories / 510.0 << " hamburgeru Big Mac";
     return 0;
 }
