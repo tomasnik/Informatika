@@ -75,8 +75,8 @@ void writeCoordinates(std::vector<Coordinate> coordinates) {
     while (getline(input, line)) {
         // Copy from input to output
         output << line << std::endl;
-        // If comment <!--Add coordinates here--> is found, add coordinates
-        if (line.find("<!--Add coordinates here-->") != std::string::npos) {
+        // If line contains var flightPlanCoordinates = [, add coordinates
+        if (line.find("var flightPlanCoordinates = [") != std::string::npos) {
             for (int i = 0; i < coordinates.size(); i++) {
                 // If last line, do not add comma after the command, else add comma
                 if (i == coordinates.size() - 1) {
