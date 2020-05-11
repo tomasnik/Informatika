@@ -10,21 +10,28 @@ public:
 };
 
 // Prototypes
-std::vector<Coordinate> setCoordinates();
+std::vector<Coordinate> setCoordinates(std::string tcxFile);
 std::string stripTags(std::string line);
-void writeCoordinates(std::vector<Coordinate> coordinates);
+void writeCoordinates(std::vector<Coordinate> coordinates, std::string templateFile);
 
 int main() {
-    std::vector<Coordinate> coordinates = setCoordinates();
-    writeCoordinates(coordinates);
+    std::cout << "Name of .tcx file: ";
+    std::string tcxFile;
+    std::cin >> tcxFile;
+    std::vector<Coordinate> coordinates = setCoordinates(tcxFile);
+
+    std::cout << "Name of .html template.";
+    std::string templateFile;
+    std::cin >> templateFile;
+    writeCoordinates(coordinates, templateFile);
     return 0;
 }
 
 // Reads TCX file and returns vector of coordinates
-std::vector<Coordinate> setCoordinates() {
+std::vector<Coordinate> setCoordinates(std::string tcxFile) {
     std::vector<Coordinate> coordinates;
     // Open TCX file
-    std::ifstream input("activity_318109582.tcx");
+    std::ifstream input(tcxFile);
     // Read file
     std::string text;
     while (getline(input, text)) {
@@ -65,9 +72,9 @@ std::string stripTags(std::string line) {
 }
 
 // Write coordinates to final html
-void writeCoordinates(std::vector<Coordinate> coordinates) {
+void writeCoordinates(std::vector<Coordinate> coordinates, std::string templateFile) {
     // Open files
-    std::ifstream input("mapa1.html");
+    std::ifstream input(templateFile);
     std::ofstream output("finalMap.html");
 
     // Read mapa1.html
