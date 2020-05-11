@@ -82,6 +82,9 @@ void writeCoordinates(std::vector<Coordinate> coordinates, std::string templateF
     while (getline(input, line)) {
         // Copy from input to output
         output << line << std::endl;
+
+        // Writing coordinates
+
         // If line contains "var flightPlanCoordinates = [", add coordinates for Google Maps
         if (line.find("var flightPlanCoordinates = [") != std::string::npos) {
             for (int i = 0; i < coordinates.size(); i++) {
@@ -103,6 +106,14 @@ void writeCoordinates(std::vector<Coordinate> coordinates, std::string templateF
                     output << "    SMap.Coords.fromWGS84(" << coordinates.at(i).longitude << ", " << coordinates.at(i).latitude << ")," << std::endl;
                 }
             }
+        }
+
+        // Centering
+
+        // If line contains "//bod vystředění mapy", add centering
+        if (line.find("//bod vystředění mapy") != std::string::npos) {
+            output << "\tvar center = SMap.Coords.fromWGS84(" << coordinates.back().longitude << ", " << coordinates.back().latitude << ");";
+
         }
     }
     input.close();
