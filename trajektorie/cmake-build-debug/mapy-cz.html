@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <script type="text/javascript" src="https://api.mapy.cz/loader.js"></script>
+    <script type="text/javascript">Loader.load();</script>
+    
+<script type="text/javascript">
+function init()
+{   
+//souřadnice zobrazené trasy - pro polyline
+	var points1 = [
+	];
+	
+	//bod vystředění mapy 
+	var center = SMap.Coords.fromWGS84(16.6135906, 49.2019344);
+
+	var m = new SMap(JAK.gel("m"), center, 16);
+	m.addDefaultLayer(SMap.DEF_BASE).enable();
+	m.addDefaultControls();
+
+	var layer = new SMap.Layer.Geometry();
+	m.addLayer(layer);
+	layer.enable();
+	
+	
+	
+	//nastavení vlastností pro vykreslení polyline
+	var options1 = {
+	    color: "#ff0000",
+    	width: 3
+	};
+	var polyline = new SMap.Geometry(SMap.GEOMETRY_POLYLINE, null, points1, options1);
+	layer.addGeometry(polyline);
+}
+</script>
+</head>
+
+<body onLoad="init();">
+    <div id="m" style="height:380px"></div>
+</body>
+
+</html>

@@ -15,12 +15,12 @@ std::string stripTags(std::string line);
 void writeCoordinates(std::vector<Coordinate> coordinates, std::string templateFile);
 
 int main() {
-    std::cout << "Name of .tcx file: ";
+    std::cout << "Name of .tcx file:" << std::endl;
     std::string tcxFile;
     std::cin >> tcxFile;
     std::vector<Coordinate> coordinates = setCoordinates(tcxFile);
 
-    std::cout << "Name of .html template.";
+    std::cout << "Name of .html template:" << std::endl;
     std::string templateFile;
     std::cin >> templateFile;
     writeCoordinates(coordinates, templateFile);
@@ -77,12 +77,12 @@ void writeCoordinates(std::vector<Coordinate> coordinates, std::string templateF
     std::ifstream input(templateFile);
     std::ofstream output("finalMap.html");
 
-    // Read mapa1.html
+    // Read templateFile
     std::string line;
     while (getline(input, line)) {
         // Copy from input to output
         output << line << std::endl;
-        // If line contains var flightPlanCoordinates = [, add coordinates
+        // If line contains "var flightPlanCoordinates = [", add coordinates for Google Maps
         if (line.find("var flightPlanCoordinates = [") != std::string::npos) {
             for (int i = 0; i < coordinates.size(); i++) {
                 // If last line, do not add comma after the command, else add comma
@@ -90,6 +90,17 @@ void writeCoordinates(std::vector<Coordinate> coordinates, std::string templateF
                     output << "    new google.maps.LatLng(" << coordinates.at(i).latitude << ", " << coordinates.at(i).longitude << ")" << std::endl;
                 } else {
                     output << "    new google.maps.LatLng(" << coordinates.at(i).latitude << ", " << coordinates.at(i).longitude << ")," << std::endl;
+                }
+            }
+        }
+        // If line contains "var points1 = [", add coordinates for Seznam Mapy.cz
+        if (line.find("var points1 = [") != std::string::npos) {
+            for (int i = 0; i < coordinates.size(); i++) {
+                // If last line, do not add comma after the command, else add comma
+                if (i == coordinates.size() - 1) {
+                    output << "    SMap.Coords.fromWGS84(" << coordinates.at(i).longitude << ", " << coordinates.at(i).latitude << ")" << std::endl;
+                } else {
+                    output << "    SMap.Coords.fromWGS84(" << coordinates.at(i).longitude << ", " << coordinates.at(i).latitude << ")," << std::endl;
                 }
             }
         }
