@@ -6,31 +6,44 @@ struct ZAMEST {
     int plat;
 };
 
-ZAMEST nactiZamestnance();
-void tiskniZamestnance(ZAMEST zam);
+class SeznamZamestnancu {
+public:
+    SeznamZamestnancu();
 
-int main() {
-    tiskniZamestnance(nactiZamestnance());
-    return 0;
+    void nactiZamestnance();
+
+    void tiskniZamestnance();
+
+private:
+    ZAMEST zamestnanci[50];
+    int index{};
+};
+
+SeznamZamestnancu::SeznamZamestnancu() {
+    index = 0;
 }
 
-ZAMEST nactiZamestnance() {
-    ZAMEST zam;
-
+void SeznamZamestnancu::nactiZamestnance() {
     std::cout << "Prijmeni: ";
-    std::cin >> zam.prijmeni;
+    std::cin >> zamestnanci[index].prijmeni;
 
     std::cout << "Jmeno: ";
-    std::cin >> zam.jmeno;
+    std::cin >> zamestnanci[index].jmeno;
 
     std::cout << "Plat: ";
-    std::cin >> zam.plat;
+    std::cin >> zamestnanci[index].plat;
 
-    return zam;
+    index++;
 }
 
-void tiskniZamestnance(ZAMEST zam) {
-    std::cout << "Prijmeni: " << zam.prijmeni << std::endl;
-    std::cout << "Jmeno: " << zam.jmeno << std::endl;
-    std::cout << "Plat: " << zam.plat << std::endl;
+void SeznamZamestnancu::tiskniZamestnance() {
+    for (int i = 0; i < index; i++) {
+        std::cout << "Prijmeni: " << zamestnanci[i].prijmeni << std::endl;
+        std::cout << "Jmeno: " << zamestnanci[i].jmeno << std::endl;
+        std::cout << "Plat: " << zamestnanci[i].plat << std::endl << std::endl;
+    }
+}
+
+int main() {
+    SeznamZamestnancu seznamZamestnancu;
 }
