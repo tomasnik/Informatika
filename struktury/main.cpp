@@ -46,4 +46,24 @@ void SeznamZamestnancu::tiskniZamestnance() {
 
 int main() {
     SeznamZamestnancu seznamZamestnancu;
+
+    while (true) {
+        std::cout << "1. pridani noveho zamestnance" << std::endl;
+        std::cout << "2. vypis vsech zamestancu" << std::endl;
+        std::cout << "3. konec programu" << std::endl << std::endl;
+
+        int input;
+        std::cin >> input;
+
+        switch (input) {
+            case 1:
+                seznamZamestnancu.nactiZamestnance();
+                break;
+            case 2:
+                seznamZamestnancu.tiskniZamestnance();
+                break;
+            case 3:
+                return 0;
+        }
+    }
 }
